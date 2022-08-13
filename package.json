@@ -1,0 +1,25 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "patch-package": "^6.4.7"
+  },
+  "dependencies": {
+    "brightid_sdk": "^1.0.1",
+    "canvas": "^2.9.0",
+    "concurrently": "^7.1.0",
+    "dotenv": "^8.2.0",
+    "find-up": "^6.3.0",
+    "uuid": "^8.3.0"
+  },
+  "scripts": {
+    "bot": "yarn workspace bot",
+    "web": "yarn workspace web",
+    "scripts": "yarn workspace scripts",
+    "postinstall": "yarn patch-package"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
