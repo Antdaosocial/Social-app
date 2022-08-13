@@ -1,0 +1,71 @@
+ersion: "2"
+fields:
+  - id: mountpoints
+    title: Mountpoints
+    description: Set mountpoints
+    target:
+      type: allNamedVolumesMountpoint
+
+  - id: updater_eth
+    title: Ethereum node url
+    description: >-
+      BrightID Node updater needs access to a synchronized Ethereum mainnet node.
+      You can either run your own node or use a service like infura.
+      Examples:
+      - Geth `ws://geth.dappnode:8546` - [Install link](http://my.dappnode/#/installer/geth.dnp.dappnode.eth)
+      - Erigon `http://rpcdaemon.erigon.dappnode:8545` - [Install link](http://my.dappnode/#/installer/erigon.dnp.dappnode.eth)
+      - Nethermind `http://nethermind.public.dappnode:8545` - [Install link](http://my.dappnode/#/installer/nethermind.public.dappnode.eth)
+      - Remote node (example URL) `https://remote-node-provider.io`
+    target:
+      type: environment
+      name: BN_UPDATER_MAINNET_WSS
+      service: updater
+    required: true
+
+  - id: idc
+    title: IDChain node url
+    description: >-
+      BrightID node needs access to an IDChain node.
+      - IDChain on DAppNode: `ws://idchain.public.dappnode:8546` - [Install link](http://my.dappnode/#/installer/idchain.public.dappnode.eth)
+      - Remote node (example URL): `https://remote-node-provider.io`
+    target:
+      type: environment
+      name: BN_UPDATER_IDCHAIN_WSS
+      service: [updater, consensus_sender, consensus_receiver]
+    required: true
+
+  - id: idc_rpc
+    title: IDChain node RPC url
+    description: >-
+      BrightID node needs access to an IDChain node.
+      - IDChain on DAppNode: `http://http://idchain.dappnode:8545` - [Install link](http://my.dappnode/#/installer/idchain.public.dappnode.eth)
+      - Remote node (example URL): `https://remote-node-provider.io`
+    target:
+      type: environment
+      name: BN_CONSENSUS_IDCHAIN_RPC_URL
+      service: [consensus_sender, consensus_receiver]
+
+  - id: updater_seedgroups_url
+    title: Updater Seedgroups node url
+    description: >-
+      BrightID node updater needs access to an IDChain node.
+      - IDChain on DAppNode: `ws://idchain.public.dappnode:8546` - [Install link](http://my.dappnode/#/installer/idchain.public.dappnode.eth)
+      - Remote node (example URL): `https://remote-node-provider.io`
+    target:
+      type: environment
+      name: BN_UPDATER_SEED_GROUPS_WS_URL
+      service: updater
+    required: true
+
+  - id: consensus_sender_private_key
+    title: Private key of consensus sender account
+    description: >-
+      Provide the private key of an IDChain account that will submit BrightID operations to IDChain. Required
+      if you want to provide a public API service and/or connect clients with your endpoint.
+      Make sure the account has a sufficient EIDI balance.
+    required: false
+    secret: true
+    target:
+      type: environment
+      name: BN_CONSENSUS_PRIVATE_KEY
+      service: [consensus_sender, ws]
